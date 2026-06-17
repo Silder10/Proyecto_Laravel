@@ -6,6 +6,8 @@ use App\Models\Equipo;
 use App\Models\Prestamo;
 use App\Models\Solicitante;
 use Illuminate\Http\Request;
+use App\Mail\PrestamoRegistrado;
+use Illuminate\Support\Facades\Mail;
 
 class PrestamoController extends Controller
 {
@@ -31,8 +33,8 @@ class PrestamoController extends Controller
 
     public function create()
     {
-        $equipos = Equipo::where('estado', 'Disponible')->get();
-        $solicitantes = Solicitante::orderBy('nombre')->get();
+        $equipos = Equipo::query()->where('estado', '=', 'Disponible')->get();
+        $solicitantes = Solicitante::orderBy('nombre', 'asc')->get();
 
         return view('prestamos.create', compact('equipos', 'solicitantes'));
     }
@@ -50,7 +52,9 @@ class PrestamoController extends Controller
         $equipo = Equipo::findOrFail($validated['equipo_id']);
         $equipo->update(['estado' => 'Prestado']);
 
-        Prestamo::create($validated);
+        $prestamo = Prestamo::create($validated);
+
+        Mail::to($prestamo->solicitante->correo)->send(new PrestamoRegistrado($prestamo));
 
         return redirect()->route('prestamos.index')->with('success', 'Préstamo registrado correctamente.');
     }
@@ -87,7 +91,7 @@ class PrestamoController extends Controller
             $prestamo->equipo->update(['estado' => 'Disponible']);
         }
 
-        $prestamo->delete();
+        $prestamo->delete($prestamo->id);
 
         return redirect()->route('prestamos.index')->with('success', 'Préstamo eliminado correctamente.');
     }
