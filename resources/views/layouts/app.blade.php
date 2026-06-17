@@ -14,7 +14,8 @@
                 <a class="nav-link" href="{{ route('equipos.index') }}">Equipos</a>
                 <a class="nav-link" href="{{ route('solicitantes.index') }}">Solicitantes</a>
                 <a class="nav-link" href="{{ route('prestamos.index') }}">Préstamos</a>
-                <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+                <a class="nav-link" href="{{ route('reportes.equipos') }}">PDF Equipos</a>
+                <a class="nav-link" href="{{ route('reportes.prestamos') }}">PDF Préstamos</a>
             </div>
             <div class="navbar-nav ms-auto">
                 <span class="nav-link text-light">{{ Auth::user()->name }}</span>
