@@ -14,7 +14,14 @@
                 <a class="nav-link" href="{{ route('equipos.index') }}">Equipos</a>
                 <a class="nav-link" href="{{ route('solicitantes.index') }}">Solicitantes</a>
                 <a class="nav-link" href="{{ route('prestamos.index') }}">Préstamos</a>
-                <a class="nav-link" href="{{ url('/') }}">Dashboard</a>
+                <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+            </div>
+            <div class="navbar-nav ms-auto">
+                <span class="nav-link text-light">{{ Auth::user()->name }}</span>
+                <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-light btn-sm">Cerrar sesión</button>
+                </form>
             </div>
         </div>
     </nav>
