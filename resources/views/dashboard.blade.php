@@ -131,7 +131,7 @@
             <h5 class="fw-700 mb-0" style="color:#1e293b;">
                 <i class="bi bi-clock-history me-2 text-primary"></i>Préstamos Recientes
             </h5>
-        </div>
+        </div><br>
         <div class="card-body p-0">
             <table class="table mb-0">
                 <thead>
